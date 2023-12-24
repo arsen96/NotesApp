@@ -1,0 +1,67 @@
+<form [formGroup]="form" >
+    <!-- TITLE -->
+    <mat-form-field appearance="fill">
+      <mat-label>Ajouter un titre</mat-label>
+      <input matInput placeholder="titre" value="qsdsqdsqd" formControlName="title">
+      <mat-icon matSuffix> 
+        @if(registerFormControl.title.touched && registerFormControl.title.errors){
+        sentiment_dissatisfied 
+      }@else{
+        sentiment_very_satisfied
+      }</mat-icon>
+    </mat-form-field>
+
+  <mat-divider></mat-divider>
+  <!-- DESCRIPTION -->
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Ajouter une description</mat-label>
+      <textarea matInput
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="10" formControlName="description"></textarea>
+        <mat-icon matSuffix> 
+        @if(registerFormControl.description.touched && registerFormControl.description.errors){
+          sentiment_dissatisfied 
+        }@else{
+          sentiment_very_satisfied
+        }
+      </mat-icon>
+     
+    </mat-form-field>
+  </p>
+
+  <mat-divider></mat-divider>
+ <!-- Tags -->
+
+  @if(noteService.allTags && noteService.allTags.length > 0){
+      <p>
+        <mat-chip-listbox aria-label="Fish selection" formControlName="tags" multiple>
+          @for (tag of noteService.allTags; track tag.id) {
+              <mat-chip-option  color="warn" value="{{tag.id}}" [selected]="tag.selected">{{tag.name}}</mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </p>
+    
+      <mat-divider></mat-divider>
+  }
+
+   <!-- Pinned -->
+    <mat-radio-group aria-label="Epingler" formControlName="pinned" class="pinnedContainer">
+      <mat-label>Épingler : </mat-label>
+      <mat-radio-button value="false" [checked]="note.type !== NoteTypes.pinned">Non</mat-radio-button>
+        <mat-radio-button value="true" [checked]="note.type === NoteTypes.pinned">Oui</mat-radio-button>
+    </mat-radio-group>
+    <mat-divider></mat-divider>
+
+    <div class="submitContainer">
+      <button mat-raised-button type="submit" (click)="onSubmit(!!note)" color="primary">
+        @if(note){  
+            Editer
+        }@else{
+            Créer
+        }
+      </button>
+    </div>
+</form>

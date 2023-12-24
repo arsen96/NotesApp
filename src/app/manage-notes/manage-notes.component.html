@@ -1,0 +1,31 @@
+
+        <div class="headerContainer">
+            <button mat-raised-button color="primary" (click)="noteService.openDialog()">Créer une note</button>
+        </div>
+        
+        @if(noteService.allNotes.data | isNoteTypeItemsExist:NoteTypes.pinned){
+            <div class="pinnedContainer">
+                <p class="noteTitle">Notes épinglées</p>
+                <div class="cardNoteContainer">
+                    @for(note of noteService.allNotes.data;track note.title){
+                        @if(note.type === NoteTypes.pinned){
+                            <ng-container [ngTemplateOutlet]="initialTemplate" [ngTemplateOutletContext]="{note}"/>
+                        }
+                   }
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        }
+    @if(noteService.allNotes.data | isNoteTypeItemsExist:NoteTypes.normal){
+            <p class="noteTitle">Autres</p>
+    }
+
+        <div class="cardNoteContainer">
+            @if(noteService.allNotes.data && noteService.allNotes.data.length > 0){
+                @for(note of noteService.allNotes.data;track note.title){
+                    @if(note.type ===  NoteTypes.normal){
+                        <ng-container [ngTemplateOutlet]="initialTemplate" [ngTemplateOutletContext]="{note}"/>
+                    }
+                }
+            }
+ </div>
