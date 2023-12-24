@@ -1,0 +1,22 @@
+  <div class="tagNameAdd">
+    <mat-form-field appearance="fill" >
+      <input matInput #tagName placeholder="Nom du tag">
+      <mat-icon class="create cursor" (click)="add(tagName)">check</mat-icon>
+    </mat-form-field>
+  </div>
+
+
+  <div class="listTags">
+    <mat-chip-listbox>
+      @for(tag of noteService.allTags;track tag.name){
+        <div class="eachTag">
+          <mat-chip>{{tag.name}}</mat-chip>
+          <div class="deleteTag cursor" (click)="deleteTag(tag.id)">
+            <mat-icon class="closeBtn">close</mat-icon>
+          </div>
+        </div>
+       
+      }
+    </mat-chip-listbox>
+  
+  </div>

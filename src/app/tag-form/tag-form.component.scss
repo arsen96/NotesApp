@@ -1,0 +1,43 @@
+.listTags{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.listTags mat-chip-listbox{
+    margin-left: auto;
+    max-height: 250px;
+    max-width: 350px;
+    overflow-y: auto;
+    width: 100%;
+}
+.deleteTag{
+    background: firebrick;
+    border-radius: 50%;
+    display: flex;
+    color: wheat;
+    margin-left: auto;
+}
+
+::ng-deep .mat-mdc-form-field-infix{
+    display: flex;
+}
+
+.eachTag mat-chip{
+    margin-left: auto;
+    word-wrap: break-word;
+    max-width: 70%;
+    overflow: hidden;
+}
+mat-form-field{
+    width: 100%;
+}
+.eachTag{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}

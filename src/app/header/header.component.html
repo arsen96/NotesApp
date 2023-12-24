@@ -1,0 +1,17 @@
+
+
+
+<div class="containerHeader">
+    <div class="searchBar">
+       <input type="search" placeholder="Recherche" (keyup)="onKey($event)" (input)="onInput($event)" >
+       <button mat-button [matMenuTriggerFor]="menu">Options</button>
+       <mat-menu #menu="matMenu">
+         <button mat-menu-item>Item 1</button>
+         <button mat-menu-item>Item 2</button>
+       </mat-menu>
+    </div>
+
+    <div class="logoutContainer">
+        <p>Déconnexion</p>
+    </div>
+</div>

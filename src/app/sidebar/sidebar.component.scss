@@ -1,0 +1,25 @@
+.sidebarContainer{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.sideBarItem.selected{
+    background-color: #feefc3;
+    border-radius: 0 25px 25px 0;
+}
+
+.sideBarItem{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 85%;
+    padding-left:15px;
+
+}
+
+.sidebarContainer p{
+    font-size: .8em;
+}

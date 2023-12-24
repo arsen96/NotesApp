@@ -1,0 +1,57 @@
+<ng-template  #reUseCard let-note="note">
+    <mat-card  class="cardNotes">
+        @if(note.type === NoteTypes.archived){
+            <div class="restoreContainer cursor" (click)="noteService.restore(note.id)">
+                <mat-icon aria-hidden="false"  fontIcon="settings_backup_restore"></mat-icon>
+            </div>
+        }@else{
+            <div class="closeContainer cursor" (click)="noteService.delete(note.id)">
+                <mat-icon aria-hidden="false"  fontIcon="close"></mat-icon>
+            </div>
+            <div class="completedContainer cursor" (click)="noteService.complete(note.id)" [ngStyle]="{'background-color': note.completed ? 'forestgreen' : 'darkgrey'}" >
+                <mat-icon aria-hidden="false"  fontIcon="check"></mat-icon>
+            </div>
+        }
+       
+        
+        <mat-card-header> 
+            <h2><strong>{{note.title}}</strong></h2>
+            <mat-icon aria-hidden="false" class="cardFooterIcon cursor"  fontIcon="mode_edit" (click)="noteService.editNote(note)"></mat-icon>
+            </mat-card-header>
+
+            <mat-divider></mat-divider>
+            <mat-card-content> 
+                <p>{{note.description}}</p>
+            </mat-card-content>
+
+            <mat-card-footer>
+                <mat-icon aria-hidden="false" class="cardFooterIcon cursor"  fontIcon="play_for_work"  (click)="noteService.pin(note.id)" [ngStyle]="{'color': note.pinned ? 'forestgreen' : 'darkgrey'}"></mat-icon>
+                <small class="dateFooter"><i>{{note.createdDate}}</i></small>
+            </mat-card-footer>
+        </mat-card>
+</ng-template>
+
+<div class="wrapperContainer">
+    <app-header></app-header>
+    <div class="containerBody">
+        <app-sidebar></app-sidebar>
+        <div class="leftContainer">
+            @if(this.noteService.filterNotes && this.noteService.filterNotes.length > 0){
+                <div class="searchContainer">
+                    @for(note of this.noteService.filterNotes;track note.id){
+                        <ng-container [ngTemplateOutlet]="reUseCard" [ngTemplateOutletContext]="{note}"/>
+                    }
+                </div>
+              
+            }@else if(sidebarService.selected === SideBarItems.notes){
+                <app-manage-notes [initialTemplate]="reUseCard"></app-manage-notes>
+            }@else if(sidebarService.selected === SideBarItems.completed){
+                <app-completed [initialTemplate]="reUseCard"></app-completed>
+            }@else if(sidebarService.selected === SideBarItems.archives){
+                <app-archived [initialTemplate]="reUseCard"></app-archived>
+                }
+        </div>
+    </div>
+</div>
+
+
