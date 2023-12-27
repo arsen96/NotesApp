@@ -5,16 +5,16 @@
         <div class="sideBarItem" (click)="select(item.type)" [ngClass]="{'selected': item.type === sideBarService.selected}">
             <mat-icon aria-hidden="false"  [fontIcon]="item.fontIcon"></mat-icon>
             @if(item.type === SideBarItems.notes){
-                <p [matBadge]="noteService.allNotes.data | numberItems:NoteTypes.normal:NoteTypes.pinned" matBadgeSize="small" class="demo-section">{{item.text }}</p>
+                <p [matBadge]="noteService.allNotes | numberItems:NoteTypes.normal:NoteTypes.pinned" matBadgeSize="small" class="demo-section">{{item.text }}</p>
             }@else if(item.type === SideBarItems.archives){
-                <p [matBadge]="noteService.allNotes.data | numberItems:NoteTypes.archived" matBadgeSize="small" class="demo-section">{{item.text}}</p>
+                <p [matBadge]="noteService.allNotes | numberItems:NoteTypes.archived" matBadgeSize="small" class="demo-section">{{item.text}}</p>
             }@else if(item.type === SideBarItems.completed){
-                <p [matBadge]="noteService.allNotes.data | numberItems:NoteTypes.completed" matBadgeSize="small" class="demo-section">{{item.text }}</p>
+                <p [matBadge]="noteService.allNotes | numberItems:NoteTypes.completed" matBadgeSize="small" class="demo-section">{{item.text }}</p>
+            }@else if(item.type === SideBarItems.profile){
+                <p matBadgeSize="small" class="demo-section">{{item.text }}</p>
             }@else {
                 <p [matBadge]="noteService.allTags.length" matBadgeSize="small" class="demo-section">{{item.text }}</p>
             }
-    
         </div>
       }
-  
 </div>

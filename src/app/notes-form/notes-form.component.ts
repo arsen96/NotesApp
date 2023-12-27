@@ -59,6 +59,7 @@ export class NotesFormComponent {
   constructor(@Inject(MAT_DIALOG_DATA) data:any,public formBuilder:FormBuilder,public http:HttpClient,public dialogRef: MatDialogRef<any>,
               public noteService:NoteActionsService){
                 this.note = data;
+                console.log("this.note",this.note)
               }
 
   ngOnInit(){
@@ -96,24 +97,25 @@ export class NotesFormComponent {
   }
 
   onSubmit(edition:boolean) {
-    this.submitted = true;
+      this.submitted = true;
     if(this.form.valid){
       let type = "";
       const pinned = typeof(this.form.value.pinned) === "string" ? this.form.value.pinned == "false" ? false : true : this.form.value.pinned
-      if(this.note){
+      
+      if(this.note?.type){
         type = this.note.type
       }else{
         type = pinned ? NoteTypes.pinned : NoteTypes.normal;
       }
+
       const data = {
-        id:this.note?.id || Date.now(),
+        id:this.note?.id || undefined,
         title:this.form.value.title,
         description:this.form.value.description,
         type,
         tags:this.form.value.tags,
-        createdDate: new Date().toLocaleString()
+        createdAt: new Date().toLocaleString()
       } as Note
-
       this.dialogRef.close({edition,data});
 
     }

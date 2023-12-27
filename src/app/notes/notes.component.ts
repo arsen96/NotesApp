@@ -21,12 +21,13 @@ import { CompleteComponent } from '../complete/complete.component';
 import { ArchivedComponent } from '../archived/archived.component';
 import { TagFormComponent } from '../tag-form/tag-form.component';
 import { NoteActionsService } from '../note-actions.service';
+import { ProfileComponent } from '../profile/profile.component';
 
 
 @Component({
   selector: 'app-notes',
   standalone: true,
-  imports: [CommonModule,MatCardModule,TagFormComponent,ArchivedComponent,CompleteComponent,ManageNotesComponent, RouterOutlet,MatIconModule,SidebarComponent,HeaderComponent,MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule,MatDividerModule],
+  imports: [CommonModule,MatCardModule,TagFormComponent,ProfileComponent, ArchivedComponent,CompleteComponent,ManageNotesComponent, RouterOutlet,MatIconModule,SidebarComponent,HeaderComponent,MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule,MatDividerModule],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss'
 })
@@ -47,11 +48,11 @@ export class NotesComponent {
 
   }
   
-  ngOnInit(){
+  async ngOnInit(){
+    await Promise.all([this.noteService.getNotes(),this.noteService.getTags()])
     this.noteService.filterSearchBar.subscribe((value) => {
-      this.noteService.filterNotes = this.noteService.allNotes.data.filter((item:any) => item.title.includes(value))
-      console.log("this.filterNotes",this.noteService.filterNotes)
-      console.log("this.noteService.allNotes.data",this.noteService.allNotes.data)
+      const regex = new RegExp(value.split('').join('.*?'), 'i');
+      this.noteService.filterNotes = this.noteService.allNotes.filter((item:any) => regex.test(item.title))
     })
   }
 

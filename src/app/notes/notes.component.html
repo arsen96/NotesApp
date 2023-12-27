@@ -1,14 +1,14 @@
 <ng-template  #reUseCard let-note="note">
     <mat-card  class="cardNotes">
         @if(note.type === NoteTypes.archived){
-            <div class="restoreContainer cursor" (click)="noteService.restore(note.id)">
+            <div class="restoreContainer cursor" (click)="noteService.restoreTemp(note.id)">
                 <mat-icon aria-hidden="false"  fontIcon="settings_backup_restore"></mat-icon>
             </div>
         }@else{
-            <div class="closeContainer cursor" (click)="noteService.delete(note.id)">
+            <div class="closeContainer cursor" (click)="noteService.deleteTemp(note.id)">
                 <mat-icon aria-hidden="false"  fontIcon="close"></mat-icon>
             </div>
-            <div class="completedContainer cursor" (click)="noteService.complete(note.id)" [ngStyle]="{'background-color': note.completed ? 'forestgreen' : 'darkgrey'}" >
+            <div class="completedContainer cursor" (click)="noteService.completeTemp(note.id)" [ngStyle]="{'background-color': note.completed ? 'forestgreen' : 'darkgrey'}" >
                 <mat-icon aria-hidden="false"  fontIcon="check"></mat-icon>
             </div>
         }
@@ -25,8 +25,8 @@
             </mat-card-content>
 
             <mat-card-footer>
-                <mat-icon aria-hidden="false" class="cardFooterIcon cursor"  fontIcon="play_for_work"  (click)="noteService.pin(note.id)" [ngStyle]="{'color': note.pinned ? 'forestgreen' : 'darkgrey'}"></mat-icon>
-                <small class="dateFooter"><i>{{note.createdDate}}</i></small>
+                <mat-icon aria-hidden="false" class="cardFooterIcon cursor"  fontIcon="play_for_work"  (click)="noteService.pinTemp(note.id)" [ngStyle]="{'color': note.type === NoteTypes.pinned ? 'forestgreen' : 'darkgrey'}"></mat-icon>
+                <small class="dateFooter"><i>{{note.createdAt}}</i></small>
             </mat-card-footer>
         </mat-card>
 </ng-template>
@@ -36,11 +36,16 @@
     <div class="containerBody">
         <app-sidebar></app-sidebar>
         <div class="leftContainer">
-            @if(this.noteService.filterNotes && this.noteService.filterNotes.length > 0){
+            @if(this.noteService.isSearching){
                 <div class="searchContainer">
-                    @for(note of this.noteService.filterNotes;track note.id){
-                        <ng-container [ngTemplateOutlet]="reUseCard" [ngTemplateOutletContext]="{note}"/>
+                    @if(this.noteService.filterNotes.length === 0){
+                        <h2>Aucun résultat n'a été trouvé</h2>
+                    }@else {
+                        @for(note of this.noteService.filterNotes;track note.id){
+                            <ng-container [ngTemplateOutlet]="reUseCard" [ngTemplateOutletContext]="{note}"/>
+                        }
                     }
+                  
                 </div>
               
             }@else if(sidebarService.selected === SideBarItems.notes){
@@ -49,7 +54,9 @@
                 <app-completed [initialTemplate]="reUseCard"></app-completed>
             }@else if(sidebarService.selected === SideBarItems.archives){
                 <app-archived [initialTemplate]="reUseCard"></app-archived>
-                }
+            }@else if(sidebarService.selected === SideBarItems.profile){
+                <app-profile></app-profile>
+            }
         </div>
     </div>
 </div>

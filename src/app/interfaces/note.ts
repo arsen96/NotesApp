@@ -8,11 +8,10 @@ export enum NoteTypes{
 }
 
 export interface Note {
-    id:number,
+    id:string,
     title:string;
     description:string;
-    createdDate:string;
-    modifiedDate:string;
+    createdAt:string;
     tags:Array<Tag>
     type:NoteTypes;
     pinned:boolean;

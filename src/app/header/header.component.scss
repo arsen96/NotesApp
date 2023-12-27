@@ -7,7 +7,15 @@
     background: whitesmoke;
 }
 
+form{
+  zoom:0.85;
+}
 
+.typeContainer{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 
   mat-form-field{
@@ -34,6 +42,29 @@
 
 }
 
+.formFieldContainer{
+  margin-top:10px;
+}
+
+.formTitle p{
+  text-align: center;
+}
+
+.datePicker{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 ::ng-deep .mat-mdc-form-field-subscript-wrapper{
   display:none;
  }
+
+ ::ng-deep.mat-mdc-menu-panel{
+  max-width: 320px!important;
+ }
+
+ mat-checkbox{
+  width: 50%;
+ }
+

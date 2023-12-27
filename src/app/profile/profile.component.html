@@ -1,0 +1,27 @@
+<div class="formContainer">
+    <form action="" [formGroup]="form">
+          <small 
+          class="text-danger" 
+          *ngIf="serverMsgError.currentPassword.length > 0">
+            {{serverMsgError.currentPassword}}
+          </small>
+        <mat-form-field>
+            <mat-label>Votre mot de passe actuel</mat-label>
+            <input type="password" name="password" formControlName="currentPassword" matInput>
+        </mat-form-field>
+
+        <small 
+        class="text-danger" 
+        *ngIf="serverMsgError.newPassword.length > 0">
+          {{serverMsgError.newPassword}}
+        </small>
+      <mat-form-field>
+          <mat-label>Votre nouveau mot de passe</mat-label>
+          <input type="password" name="password" formControlName="newPassword" matInput>
+      </mat-form-field>
+
+      
+        <button mat-raised-button color="primary" (click)="onSubmit()">Modifier</button>
+    </form>
+</div>
+

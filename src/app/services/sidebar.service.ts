@@ -4,7 +4,8 @@ export enum SideBarItems {
   notes,
   tags,
   archives,
-  completed
+  completed,
+  profile
 }
 
 @Injectable({
