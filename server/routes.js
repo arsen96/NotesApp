@@ -84,8 +84,6 @@ const errHandler = (err) => {
         err.currentPassword = "Mot de passe actuel incorrecte"
     }
 
-    console.log("errerr",err.message)
-
     return err
 }
 
