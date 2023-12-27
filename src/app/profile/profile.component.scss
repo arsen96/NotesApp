@@ -1,0 +1,12 @@
+form{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    justify-content: center;
+    gap:5px;
+    margin: auto;
+}
+
+.text-danger{
+    color:firebrick;
+}

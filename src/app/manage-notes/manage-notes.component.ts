@@ -37,38 +37,6 @@ export class ManageNotesComponent {
   ngOnInit(){
   }
 
-  // openDialog(note?:Note): void {
-  //   const dialogRef = this.dialog.open(NotesFormComponent,
-  //   {
-  //     data: note 
-  //   }
-  //   );
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if(result?.data){
-  //       this.currentNote = result.data;
-  //       let notes = JSON.parse(localStorage.getItem("notes") as string);
-  //       if(notes){
-  //         this.noteService.allNotes = notes;
-  //         if(!result.edition){
-  //           this.noteService.allNotes.data.push(this.currentNote);
-  //         }else{
-  //           let dataIndex = this.noteService.allNotes.data.findIndex((item:any) => item.id == this.currentNote.id)
-  //           if(dataIndex > -1){
-  //             this.noteService.allNotes.data[dataIndex] = this.currentNote;
-  //           }
-  //         }
-  //         if(!this.noteService.pinnedNotes){
-  //           this.noteService.pinnedNotes = {};
-  //         }
-  //         this.noteService.pinnedNotes.data = this.noteService.allNotes.data.filter((item:any) => item.pinned);
-  //         localStorage.setItem('notes',JSON.stringify(this.noteService.allNotes));
-  //       }
-  //     }
-     
-  //   });
-  // }
-
 
 
 

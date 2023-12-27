@@ -2,16 +2,72 @@
 
 
 <div class="containerHeader">
-    <div class="searchBar">
-       <input type="search" placeholder="Recherche" (keyup)="onKey($event)" (input)="onInput($event)" >
-       <button mat-button [matMenuTriggerFor]="menu">Options</button>
-       <mat-menu #menu="matMenu">
-         <button mat-menu-item>Item 1</button>
-         <button mat-menu-item>Item 2</button>
-       </mat-menu>
-    </div>
+  <div class="searchBar">
+     <input type="search" placeholder="Recherche par titre"  [(ngModel)]="noteService.searchBarValue" (input)="onInput($event)">
+     <button mat-button [matMenuTriggerFor]="menu" >Options</button>
+     <mat-menu #menu="matMenu" >
+      <div class="allSearchItems" (click)="$event.stopPropagation()">
+          <form [formGroup]="form">
+          <div class="typeContainer">
+            <p >Types</p>
+            <section class="example-section" #result>
+                @for(type of types;track type.name){
+                  <mat-checkbox class="example-margin" [value]="type.value"  (change)="onCheckChange($event)">{{type.name}}</mat-checkbox>
+                }
+            </section>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="formFieldContainer">
+            <div class="formTitle">
+              <p>Date de création</p>
+            </div>
 
-    <div class="logoutContainer">
-        <p>Déconnexion</p>
-    </div>
+            <div class="datePicker">
+              <mat-form-field>
+                <mat-label>Début</mat-label>
+                <input matInput [matDatepicker]="picker"  (dateChange)="dateChange(false,$event)">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <mat-label>Fin</mat-label>
+                <input matInput [matDatepicker]="pickerEnd"  (dateChange)="dateChange(true,$event)">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+      
+          </div>
+          @if(noteService.allTags.length > 0){
+            <mat-divider></mat-divider>
+            <div class="formFieldContainer">
+              <div class="formTitle">
+                <p>Libellés</p>
+              </div>
+  
+              <div class="datePicker">
+                <mat-chip-listbox multiple>
+                @for(tag of noteService.allTags;track tag.id){
+                  <div class="eachTag">
+                    <mat-chip-option [value]="tag.id"  (selectionChange)="onTagChange($event)" >{{tag.name}}</mat-chip-option>
+                  </div>
+                }
+              </mat-chip-listbox>
+              </div>
+        
+            </div>
+          }
+          
+        </form>
+      </div>
+     </mat-menu>
+  </div>
+
+  <div class="logoutContainer cursor">
+      <p (click)="noteService.logout()">Déconnexion</p>
+  </div>
 </div>

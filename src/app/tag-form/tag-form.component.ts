@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogRef } from '@angular/material/dialog';
 import {MatChip, MatChipsModule} from '@angular/material/chips';
+import { lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 MatChip
 @Component({
   selector: 'app-tag-form',
@@ -20,22 +22,26 @@ MatChip
 })
 export class TagFormComponent {
 
-  constructor(public noteService:NoteActionsService,public dialogRef: MatDialogRef<any>){
+  constructor(public noteService:NoteActionsService,public dialogRef: MatDialogRef<any>,public http:HttpClient){
 
   }
 
   ngOnInit(){
 
   }
-  deleteTag(id:number){
-    this.noteService.allTags = this.noteService.allTags.filter((item) => item.id !== id)
-    localStorage.setItem("tags",JSON.stringify(this.noteService.allTags));
+  async deleteTag(id:string){
+    await lastValueFrom(this.http.get("http://localhost:3000/deleteTag?id="+id)) as any;
+    this.noteService.getTags();
   }
-  add(item:HTMLInputElement){
+
+  async add(item:HTMLInputElement){
       if(item.value.length > 0){
-        this.noteService.allTags.push({id:Date.now(),name:item.value});
-        localStorage.setItem("tags",JSON.stringify(this.noteService.allTags));
+        const data = {
+          name:item.value
+        }
         item.value = "";
+        await lastValueFrom(this.http.post("http://localhost:3000/createTag",{data},{withCredentials:true})) as any;
+        await this.noteService.getTags();
       }
   }
 }

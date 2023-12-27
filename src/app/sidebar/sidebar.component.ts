@@ -43,18 +43,23 @@ export class SidebarComponent {
       type:SideBarItems.completed,
       text:'Terminer',
       fontIcon:'check_circle'
+    },
+    {
+      type:SideBarItems.profile,
+      text:'Profile',
+      fontIcon:'perm_identity'
     }
   ]
 
   public constructor(public sideBarService:SidebarService,public noteService:NoteActionsService){}
   get getNotesCount(){
-    const notedCount = this.noteService.allNotes.data.filter((item:any) => {
+    const notedCount = this.noteService.allNotes.filter((item:any) => {
       return item.type === NoteTypes.normal || item.type === NoteTypes.pinned
     })?.length;
     return notedCount;
   }
   select(type:SideBarItems){
-    this.noteService.filterNotes = new Array()
+    this.noteService.removeSearch();
     if(type === SideBarItems.tags){
       this.noteService.openTagModal()
       return;

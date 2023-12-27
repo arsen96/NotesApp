@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div class="formContainer">
+    <form action="" [formGroup]="form">
+        <small 
+        class="text-danger" 
+        *ngIf="serverMsgError.email.length > 0">
+          {{serverMsgError.email}}
+        </small>
+        <mat-form-field>
+     
+            <mat-label>Email </mat-label>
+            <input type="email" name="email" formControlName="email"  matInput>
+            
+          </mat-form-field>
+      
+          <small 
+          class="text-danger" 
+          *ngIf="serverMsgError.password.length > 0">
+            {{serverMsgError.password}}
+          </small>
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input type="password" name="password" formControlName="password" matInput>
+        </mat-form-field>
+
+      
+        <button mat-raised-button color="primary" (click)="onSubmit()">Valider</button>
+
+        <div class="connectionInfo">
+          @if(isLogin){
+            <button mat-raised-button color="accent" (click)="isLogin = false; clearFields()">Créer nouveau compte</button>
+          }@else {
+            <button mat-raised-button color="warn" (click)="isLogin = true; clearFields()">Connectez-vous</button>
+          }
+        </div>
+      
+    </form>
+</div>
+

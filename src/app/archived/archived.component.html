@@ -1,11 +1,11 @@
 
    
                <div class="cardNoteContainer">
-                   @if(noteService.allNotes && noteService.allNotes.data.length > 0){
-                        @for(note of noteService.allNotes.data;track note.title){
-                            @if(note.type === NoteTypes.archived){
-                                <ng-container [ngTemplateOutlet]="initialTemplate" [ngTemplateOutletContext]="{note}"/>
-                            }
-                       }
-                }
- </div>
+                @if(noteService.allNotes && noteService.allNotes.length > 0){
+                     @for(note of noteService.allNotes;track note.title){
+                         @if(note.type === NoteTypes.archived){
+                             <ng-container [ngTemplateOutlet]="initialTemplate" [ngTemplateOutletContext]="{note}"/>
+                         }
+                    }
+             }
+</div>
