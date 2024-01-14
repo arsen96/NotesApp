@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config({path:'./config.env'})
-const secretKeyToken = process.env.secretKeyToken
+const secretKeyToken = "dev"
 
 const verifyJWTToken = (req,res,next) => {
     const token = req.cookies.note_user

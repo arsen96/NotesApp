@@ -17,8 +17,8 @@ const UserRoutes = require('./routes');
 const NotesRoutes = require('./notesRoutes');
 
 mongoConnection().then(() => {
-    app.listen(process.env.PORT,(req,res) => {
-        console.log("readmon PORT "+process.env.PORT);
+    app.listen(3000,(req,res) => {
+        console.log("readmon PORT "+3000);
     })
 })
 

@@ -5,7 +5,7 @@ const User = require('./db/models/Users')
 require('dotenv').config({path:'./config.env'})
 const verifyJWTToken = require('./tokenMiddleware');
 
-const sekretkeyToken = process.env.secretKeyToken;
+const sekretkeyToken = "dev";
 const maxAge = 1 * 24 * 60 * 60;
 
 
